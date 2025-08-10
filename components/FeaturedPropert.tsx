@@ -2,83 +2,74 @@
 import React from "react";
 import { MapPin, Bed, Bath, Square } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const FeaturedProperties = () => {
   const properties = [
     {
       id: 1,
-      title: "Luxury Villa in DHA Phase 6",
-      location: "DHA Phase 6, Karachi",
+      title: "300 Square Yards Brand New Bungalow",
+      location: "DHA Phase VIII, Karachi",
       price: "8.5 Crore",
       beds: 5,
-      baths: 6,
-      area: "500 sq yd",
-      image:
-        "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg",
-      rating: 4.9,
+      baths: 0,
+      area: "300 sq yards",
+      image: "prop1.jpg",
       featured: true,
     },
     {
       id: 2,
-      title: "Modern Apartment in Clifton",
-      location: "Clifton Block 2, Karachi",
+      title: "Brand new Ultra Luxury House",
+      location: "DHA Phase VIII, Karachi",
       price: "2.8 Crore",
-      beds: 3,
+      beds: 6,
       baths: 3,
-      area: "2100 sq ft",
-      image: "https://images.pexels.com/photos/280221/pexels-photo-280221.jpeg",
-      rating: 4.7,
+      area: "666 sq yards",
+      image: "prop2.jpg",
       featured: false,
     },
     {
       id: 3,
-      title: "Commercial Plaza in Gulshan",
-      location: "Gulshan-e-Iqbal, Karachi",
-      price: "12 Crore",
-      beds: 0,
-      baths: 8,
-      area: "8000 sq ft",
-      image:
-        "https://images.pexels.com/photos/2119714/pexels-photo-2119714.jpeg",
-      rating: 4.8,
+      title: "Brand new Luxu House",
+      location: "DHA Phase VIII, Karachi",
+      price: "8 Crore",
+      beds: 6,
+      baths: 4,
+      area: "666 sq ft",
+      image: "prop3.jpg",
       featured: false,
     },
     {
       id: 4,
-      title: "Penthouse in Emaar Crescent Bay",
-      location: "Emaar Crescent Bay, Karachi",
-      price: "15 Crore",
-      beds: 4,
-      baths: 5,
-      area: "4500 sq ft",
-      image:
-        "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg",
-      rating: 5.0,
+      title: "4 Luxurious 5-Bedroom Modern Bungalow",
+      location: "DHA Phase VIII, Zone B, Karachi",
+      price: "14 Crore",
+      beds: 5,
+      baths: 3,
+      area: "500 sq yards",
+      image: "prop4.jpg",
       featured: true,
     },
     {
       id: 5,
-      title: "Family Home in North Nazimabad",
-      location: "North Nazimabad, Karachi",
-      price: "1.8 Crore",
-      beds: 4,
-      baths: 3,
-      area: "240 sq yd",
-      image: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
-      rating: 4.5,
+      title: "Ultra Luxury 5 Bedroom Bungalow",
+      location: "DHA Phase VIII, Karachi",
+      price: "3.8 Crore",
+      beds: 5,
+      baths: 4,
+      area: "500 sq yards",
+      image: "prop5.jpg",
       featured: false,
     },
     {
       id: 6,
-      title: "Sea View Apartment in Clifton",
-      location: "Marine Drive, Clifton",
-      price: "4.2 Crore",
-      beds: 3,
+      title: "Brand New Luxurious Bungalow",
+      location: "DHA Phase VIII, Karachi",
+      price: "5.5 Crore",
+      beds: 6,
       baths: 4,
-      area: "2800 sq ft",
-      image:
-        "https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg",
-      rating: 4.9,
+      area: "1000 sq yards",
+      image: "prop6.jpg",
       featured: false,
     },
   ];
@@ -165,10 +156,12 @@ const FeaturedProperties = () => {
                         <span>{property.beds} Beds</span>
                       </div>
                     )}
-                    <div className="flex items-center space-x-1">
-                      <Bath size={16} />
-                      <span>{property.baths} Baths</span>
-                    </div>
+                    {property.baths > 0 && (
+                      <div className="flex items-center space-x-1">
+                        <Bath size={16} />
+                        <span>{property.baths} Baths</span>
+                      </div>
+                    )}
                     <div className="flex items-center space-x-1">
                       <Square size={16} />
                       <span>{property.area}</span>
@@ -185,9 +178,16 @@ const FeaturedProperties = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <button className="bg-[#d1a925] text-black font-semibold px-8 py-4 rounded-lg hover:from-[#b8941f] hover:to-[#d4af37] transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#d4af37]/25">
-            View All Properties
-          </button>
+          <Link href={"#"}>
+            <motion.button
+              className="bg-[#d1a925] text-black font-semibold px-8 py-4 rounded-lg hover:from-[#b8941f] hover:to-[#d4af37] cursor-pointer hover:shadow-lg hover:shadow-[#d4af37]/25"
+              whileHover={{ scale: 1.07 }}
+              whileTap={{ scale: 0.98 }}
+              onHoverStart={() => console.log("hover started!")}
+            >
+              View All Properties
+            </motion.button>
+          </Link>
         </div>
       </div>
     </section>
