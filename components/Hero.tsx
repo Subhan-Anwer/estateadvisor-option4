@@ -1,52 +1,65 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
-    {
-      image: "https://images.pexels.com/photos/280221/pexels-photo-280221.jpeg",
-      title: "Karachi's Premier Properties",
-    },
-    {
-      image:
-        "https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg",
-      title: "Luxury Living Redefined",
-    },
-    {
-      image:
-        "https://images.pexels.com/photos/2119714/pexels-photo-2119714.jpeg",
-      title: "Commercial Excellence",
-    },
-  ];
+  // Memoized slides to avoid re-creation on every render
+  const slides = useMemo(
+    () => [
+      { image: "/hero1.jpg", title: "Karachi's Premier Properties" },
+      { image: "/hero2.jpg", title: "Luxury Living Redefined" },
+      { image: "/hero3.jpg", title: "Commercial Excellence" },
+    ],
+    []
+  );
 
+  // Change slide every 5s
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    const timer = setInterval(
+      () => setCurrentSlide((prev) => (prev + 1) % slides.length),
+      5000
+    );
     return () => clearInterval(timer);
+  }, [slides.length]);
+
+  const handleIndicatorClicker = useCallback((index: number) => {
+    setCurrentSlide(index);
   }, []);
 
   return (
     <section className="relative h-screen overflow-hidden">
       {/* Background Slider */}
       <div className="absolute inset-0">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className="w-full h-full object-cover scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/90 via-[#111111]/70 to-transparent"></div>
-          </div>
-        ))}
+        <AnimatePresence>
+          {slides.map(
+            (slide, index) =>
+              index === currentSlide && (
+                <motion.div
+                  key={index}
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  style={{ willChange: "opacity, transform" }}
+                >
+                  <Image
+                    src={slide.image}
+                    alt={slide.title}
+                    fill
+                    priority={index === 0} // First image loads instantly
+                    quality={90}
+                    sizes="100vw"
+                    className="object-cover scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-[#111111]/40 to-transparent"></div>
+                </motion.div>
+              )
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Content */}
@@ -70,13 +83,14 @@ const Hero = () => {
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-8 z-10 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {slides.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide ? "bg-[#d4af37] w-8" : "bg-white/40"
+            onClick={() => handleIndicatorClicker(index)}
+            aria-label={`Go to slide ${index + 1}`}
+            className={`w-3.5 h-3.5 rounded-full transition-all duration-300  ${
+              index === currentSlide ? "bg-[#d4af37] w-6" : "bg-white/40"
             }`}
           />
         ))}
