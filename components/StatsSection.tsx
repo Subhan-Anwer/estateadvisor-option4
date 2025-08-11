@@ -1,110 +1,115 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Building, Users, Award, Calendar } from "lucide-react";
 
 const StatsSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [counts, setCounts] = useState({
     properties: 0,
     clients: 0,
     experience: 0,
     partners: 0,
   });
+
   const sectionRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
+  const animationRef = useRef<number>(null);
 
-  const targetValues = {
-    properties: 2500,
-    clients: 15000,
-    experience: 30,
-    partners: 150,
-  };
+  const targetValues = useMemo(
+    () => ({
+      properties: 2500,
+      clients: 15000,
+      experience: 30,
+      partners: 150,
+    }),
+    []
+  );
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true);
-          animateCounters();
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [isVisible]);
-
+  // Smooth counter animation
   const animateCounters = () => {
     const duration = 2000;
-    const startTime = Date.now();
+    const startTime = performance.now();
 
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
-      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
-      const easedProgress = easeOutCubic(progress);
+    const step = (timestamp: number) => {
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = easeOutCubic(progress);
 
       setCounts({
-        properties: Math.floor(targetValues.properties * easedProgress),
-        clients: Math.floor(targetValues.clients * easedProgress),
-        experience: Math.floor(targetValues.experience * easedProgress),
-        partners: Math.floor(targetValues.partners * easedProgress),
+        properties: Math.floor(targetValues.properties * eased),
+        clients: Math.floor(targetValues.clients * eased),
+        experience: Math.floor(targetValues.experience * eased),
+        partners: Math.floor(targetValues.partners * eased),
       });
 
       if (progress < 1) {
-        requestAnimationFrame(animate);
+        animationRef.current = requestAnimationFrame(step);
       }
     };
 
-    animate();
+    animationRef.current = requestAnimationFrame(step);
   };
 
-  const stats = [
-    {
-      icon: Building,
-      value: counts.properties,
-      suffix: "+",
-      label: "Properties Sold",
-      color: "from-[#fcd01c] to-[#9e8021]",
-    },
-    {
-      icon: Users,
-      value: counts.clients,
-      suffix: "+",
-      label: "Happy Clients",
-      color: "from-[#5ad265] to-[#1f9c33]",
-    },
-    {
-      icon: Calendar,
-      value: counts.experience,
-      suffix: "",
-      label: "Years Experience",
-      color: "from-[#4095ff] to-[#1c57b8]",
-    },
-    {
-      icon: Award,
-      value: counts.partners,
-      suffix: "+",
-      label: "Partner Developers",
-      color: "from-[#fa5caf] to-[#ed3992]",
-    },
-  ];
+  // Trigger when visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          animateCounters();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      observer.disconnect();
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [targetValues]);
+
+  const stats = useMemo(
+    () => [
+      {
+        icon: Building,
+        key: "properties",
+        suffix: "+",
+        label: "Properties Sold",
+        color: "from-[#fcd01c] to-[#9e8021]",
+      },
+      {
+        icon: Users,
+        key: "clients",
+        suffix: "+",
+        label: "Happy Clients",
+        color: "from-[#5ad265] to-[#1f9c33]",
+      },
+      {
+        icon: Calendar,
+        key: "experience",
+        suffix: "",
+        label: "Years Experience",
+        color: "from-[#4095ff] to-[#1c57b8]",
+      },
+      {
+        icon: Award,
+        key: "partners",
+        suffix: "+",
+        label: "Partner Developers",
+        color: "from-[#fa5caf] to-[#ed3992]",
+      },
+    ],
+    []
+  );
 
   return (
     <section
       ref={sectionRef}
       className="py-20 bg-[#0C0C0C] relative overflow-hidden"
     >
-      {/* Background Pattern */}
-      {/* <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/20 to-transparent transform -skew-y-6"></div>
-      </div> */}
-
       <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
             Trusted by <span className="text-[#d4af37]">Thousands</span>
@@ -115,14 +120,10 @@ const StatsSection = () => {
           </p>
         </div>
 
+        {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="group relative "
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              {/* Card */}
+          {stats.map((stat) => (
+            <div key={stat.key} className="group relative">
               <div className="glass bg-black border border-white/10 rounded-2xl p-8 text-center hover:border-[#d4af37]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#d4af37]/10">
                 {/* Icon */}
                 <div
@@ -134,7 +135,7 @@ const StatsSection = () => {
                 {/* Number */}
                 <div className="mb-4 text-white">
                   <span className="text-4xl lg:text-5xl font-bold">
-                    {stat.value.toLocaleString()}
+                    {counts[stat.key as keyof typeof counts].toLocaleString()}
                   </span>
                   <span className="text-3xl lg:text-4xl font-bold">
                     {stat.suffix}
@@ -143,9 +144,6 @@ const StatsSection = () => {
 
                 {/* Label */}
                 <p className="text-white/70 font-medium">{stat.label}</p>
-
-                {/* Animated Border */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#d4af37]/0 via-[#d4af37]/20 to-[#d4af37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
               </div>
             </div>
           ))}
