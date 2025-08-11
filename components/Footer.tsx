@@ -11,6 +11,17 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+const socials = [
+  { icon: <Facebook size={18} />, hover: "hover:bg-[#106aff]" },
+  {
+    icon: <Instagram size={18} />,
+    hover:
+      "hover:bg-gradient-to-br hover:from-[#F9CE34] hover:via-[#EE2A7B] hover:to-[#6228d7]",
+  },
+  { icon: <Linkedin size={18} />, hover: "hover:bg-[#086bc9]" },
+  { icon: <Youtube size={18} />, hover: "hover:bg-[#ff0000]" },
+];
+
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-b border-t border-gray-400/30 from-[#111111] to-[#000000] relative">
@@ -35,16 +46,7 @@ const Footer = () => {
               make smarter property decisions in Karachi since 2012.
             </p>
             <div className="flex space-x-3">
-              {[
-                { icon: <Facebook size={18} />, hover: "hover:bg-[#106aff]" },
-                {
-                  icon: <Instagram size={18} />,
-                  hover:
-                    "hover:bg-gradient-to-br hover:from-[#F9CE34] hover:via-[#EE2A7B] hover:to-[#6228d7]",
-                },
-                { icon: <Linkedin size={18} />, hover: "hover:bg-[#086bc9]" },
-                { icon: <Youtube size={18} />, hover: "hover:bg-[#ff0000]" },
-              ].map((social, idx) => (
+              {socials.map((social, idx) => (
                 <a
                   key={idx}
                   href="#"

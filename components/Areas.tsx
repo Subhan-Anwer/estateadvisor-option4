@@ -1,47 +1,65 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Home, Building } from "lucide-react";
 
-const Areas = () => {
-  const [hoveredArea, setHoveredArea] = useState<string | null>(null);
+const areas = [
+  {
+    name: "DHA",
+    listings: 45,
+    description: "Premium residential and commercial properties",
+    position: { top: "17%", left: "30%" },
+    icon: Home,
+  },
+  {
+    name: "Bahria Town",
+    listings: 32,
+    description: "Modern planned community with all amenities",
+    position: { top: "30%", left: "65%" },
+    icon: Building,
+  },
+  {
+    name: "Gulshan e Iqbal",
+    listings: 28,
+    description: "settle in a great connectivity neighborhood",
+    position: { top: "41%", left: "47%" },
+    icon: Home,
+  },
+  {
+    name: "Clifton Cantt",
+    listings: 18,
+    description: "Secure cantonment area with modern facilities",
+    position: { top: "62%", left: "39%" },
+    icon: Building,
+  },
+  {
+    name: "PECHS",
+    listings: 25,
+    description: "Central location with excellent infrastructure",
+    position: { top: "59%", left: "76%" },
+    icon: Home,
+  },
+];
 
-  const areas = [
-    {
-      name: "DHA",
-      listings: 45,
-      description: "Premium residential and commercial properties",
-      position: { top: "17%", left: "30%" },
-      icon: Home,
-    },
-    {
-      name: "Bahria Town",
-      listings: 32,
-      description: "Modern planned community with all amenities",
-      position: { top: "30%", left: "65%" },
-      icon: Building,
-    },
-    {
-      name: "Gulshan e Iqbal",
-      listings: 28,
-      description: "settle in a great connectivity neighborhood",
-      position: { top: "41%", left: "47%" },
-      icon: Home,
-    },
-    {
-      name: "Clifton Cantt",
-      listings: 18,
-      description: "Secure cantonment area with modern facilities",
-      position: { top: "62%", left: "39%" },
-      icon: Building,
-    },
-    {
-      name: "PECHS",
-      listings: 25,
-      description: "Central location with excellent infrastructure",
-      position: { top: "59%", left: "76%" },
-      icon: Home,
-    },
-  ];
+const Areas = () => {
+  const [mapVisible, setMapVisible] = useState(false);
+  const mapRef = useRef<HTMLDivElement | null>(null);
+
+  // Lazy-load the map when it's in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setMapVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (mapRef.current) {
+      observer.observe(mapRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section className="py-20 bg-[#0c0c0c]">
@@ -57,20 +75,27 @@ const Areas = () => {
           </p>
         </div>
 
-        {/* Interactive Map Section */}
+        {/* Layout */}
         <div className="grid lg:grid-cols-3 gap-12 items-start">
           {/* Map Area */}
           <div className="lg:col-span-2">
-            <div className="relative rounded-2xl overflow-hidden border border-gray-800 h-96 lg:h-[500px]">
-              <iframe
-                src="https://www.google.com/maps/d/u/0/embed?mid=19aAYPSX20cdioMLEuAdy1t3rGGOzxw0&ehbc=2E312F&noprof=1"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+            <div
+              ref={mapRef}
+              className="relative rounded-2xl overflow-hidden border border-gray-800 h-96 lg:h-[500px] bg-[#1a1a1a] flex items-center justify-center"
+            >
+              {mapVisible ? (
+                <iframe
+                  src="https://www.google.com/maps/d/u/0/embed?mid=19aAYPSX20cdioMLEuAdy1t3rGGOzxw0&ehbc=2E312F&noprof=1"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              ) : (
+                <span className="text-gray-500 text-lg">Loading map...</span>
+              )}
             </div>
           </div>
 
@@ -85,22 +110,10 @@ const Areas = () => {
               return (
                 <div
                   key={area.name}
-                  className={` rounded-xl p-4 bg-[#1c1c1c] border transition-all duration-300 cursor-pointer ${
-                    hoveredArea === area.name
-                      ? "border-[#daab2d] bg-yellow-400/10"
-                      : "border-white/20"
-                  }`}
-                  onMouseEnter={() => setHoveredArea(area.name)}
-                  onMouseLeave={() => setHoveredArea(null)}
+                  className="group rounded-xl p-4 bg-[#1c1c1c] border border-white/20 transition-transform duration-200 hover:scale-[1.02] hover:border-[#daab2d] hover:bg-yellow-400/10 cursor-pointer"
                 >
                   <div className="flex items-start space-x-3">
-                    <div
-                      className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                        hoveredArea === area.name
-                          ? "bg-[#daab2d] text-black"
-                          : "bg-[#383838] text-[#daab2d]"
-                      }`}
-                    >
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-[#383838] text-[#daab2d] hover:bg-[#daab2d] hover:text-black">
                       <IconComponent className="h-5 w-5" />
                     </div>
 
@@ -111,11 +124,9 @@ const Areas = () => {
                       <p className="text-sm text-gray-200/60 mb-2">
                         {area.description}
                       </p>
-                      <div className="flex items-center justify-between">
                         <span className="text-xs text-[#daab2d] font-medium">
                           {area.listings} Properties
                         </span>
-                      </div>
                     </div>
                   </div>
                 </div>

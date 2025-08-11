@@ -3,24 +3,60 @@ import React, { useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import Image from "next/image";
 
+const contactMethods = [
+  {
+    icon: <Phone className="w-6 h-6 text-white" />,
+    title: "Call Us",
+    value: "+92 323 3385541",
+    valueColor: "text-[#df8a29]",
+    note: "Mon-Sat 9AM-8PM",
+    gradient: "from-[#f59e0b] to-[#d97706]",
+  },
+  {
+    icon: (
+      <Image
+        src="/Whatsapp.png"
+        alt="WhatsApp Icon"
+        width={28}
+        height={28}
+        className="w-7 h-7 transition-transform duration-300"
+      />
+    ),
+    title: "WhatsApp",
+    value: "+92 323 3385541",
+    valueColor: "text-[#25D366]",
+    note: "Quick responses",
+    gradient: "from-[#5ad265] to-[#1f9c33]",
+  },
+  {
+    icon: <Mail className="w-6 h-6 text-white" />,
+    title: "Email",
+    value: "sohailadvisor90@gmail.com",
+    valueColor: "text-[#3b82f6]",
+    note: "24-48 hour response",
+    gradient: "from-[#3b82f6] to-[#1d4ed8]",
+  },
+  {
+    icon: <MapPin className="w-6 h-6 text-white" />,
+    title: "Visit Us",
+    value: "Shahbaz Comm lane 4",
+    valueColor: "text-[#ee3942]",
+    note: "DHA Phase VI Karachi",
+    gradient: "from-[#d61620] to-[#a00911]",
+  },
+];
+
 const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     phone: "",
-    service: "",
     message: "",
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -45,71 +81,30 @@ const ContactSection = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Contact Information */}
-          <div
-            className="lg:col-span-1 space-y-8"
-            
-          >
+          <div className="lg:col-span-1 space-y-8">
             {/* Contact Methods */}
             <div className="space-y-6">
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#d4af37]/30 transition-all duration-300">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-xl flex items-center justify-center">
-                    <Phone className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold mb-1">Call Us</h3>
-                    <p className="text-[#df8a29]">+92 323 3385541</p>
-                    <p className="text-white/60 text-sm">Mon-Sat 9AM-8PM</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#d4af37]/30 transition-all duration-300">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#5ad265] to-[#1f9c33] rounded-xl flex items-center justify-center">
-                    <Image
-                      src="/Whatsapp.png"
-                      alt="WhatsApp Icon"
-                      width={28}
-                      height={28}
-                      className="w-7 h-7 text-white group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold mb-1">WhatsApp</h3>
-                    <p className="text-[#25D366]">+92 323 3385541</p>
-                    <p className="text-white/60 text-sm">Quick responses</p>
+              {contactMethods.map((method, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#d4af37]/30 transition-all duration-300"
+                >
+                  <div className="flex items-center space-x-4">
+                    <div
+                      className={`w-12 h-12 bg-gradient-to-br ${method.gradient} rounded-xl flex items-center justify-center`}
+                    >
+                      {method.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold mb-1">
+                        {method.title}
+                      </h3>
+                      <p className={method.valueColor}>{method.value}</p>
+                      <p className="text-white/60 text-sm">{method.note}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#d4af37]/30 transition-all duration-300">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] rounded-xl flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold mb-1">Email</h3>
-                    <p className="text-[#3b82f6]">sohailadvisor90@gmail.com</p>
-                    <p className="text-white/60 text-sm">24-48 hour response</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#d4af37]/30 transition-all duration-300">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#d61620] to-[#a00911] rounded-xl flex items-center justify-center">
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold mb-1">Visit Us</h3>
-                    <p className="text-[#ee3942]">Shahbaz Comm lane 4</p>
-                    <p className="text-white/60 text-sm">
-                      DHA Phase VI Karachi
-                    </p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -141,13 +136,13 @@ const ContactSection = () => {
                     Phone Number
                   </label>
                   <input
-                    type="tel"
+                    type="number"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] transition-colors"
-                    placeholder="+92 XXX XXX XXXX"
+                    placeholder="+92 312 1234567"
                   />
                 </div>
 

@@ -3,6 +3,7 @@ import React from "react";
 import { MapPin, Bed, Bath, Square } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const FeaturedProperties = () => {
   const properties = [
@@ -14,7 +15,7 @@ const FeaturedProperties = () => {
       beds: 5,
       baths: 0,
       area: "300 sq yards",
-      image: "prop1.jpg",
+      image: "/prop1.jpg",
       featured: true,
     },
     {
@@ -25,7 +26,7 @@ const FeaturedProperties = () => {
       beds: 6,
       baths: 3,
       area: "666 sq yards",
-      image: "prop2.jpg",
+      image: "/prop2.jpg",
       featured: false,
     },
     {
@@ -36,7 +37,7 @@ const FeaturedProperties = () => {
       beds: 6,
       baths: 4,
       area: "666 sq ft",
-      image: "prop3.jpg",
+      image: "/prop3.jpg",
       featured: false,
     },
     {
@@ -47,7 +48,7 @@ const FeaturedProperties = () => {
       beds: 5,
       baths: 3,
       area: "500 sq yards",
-      image: "prop4.jpg",
+      image: "/prop4.jpg",
       featured: true,
     },
     {
@@ -58,7 +59,7 @@ const FeaturedProperties = () => {
       beds: 5,
       baths: 4,
       area: "500 sq yards",
-      image: "prop5.jpg",
+      image: "/prop5.jpg",
       featured: false,
     },
     {
@@ -69,7 +70,7 @@ const FeaturedProperties = () => {
       beds: 6,
       baths: 4,
       area: "1000 sq yards",
-      image: "prop6.jpg",
+      image: "/prop6.jpg",
       featured: false,
     },
   ];
@@ -101,13 +102,13 @@ const FeaturedProperties = () => {
               <motion.div
                 key={property.id}
                 className={`group relative bg-white/3 backdrop-blur-sm border border-gray-500/50 rounded-2xl overflow-hidden hover:border-[#d4af37]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#d4af37]/10 ${gridClass}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                initial={{ y: 25, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                  ease: "easeOut",
+                  opacity: { duration: 0.35, ease: "easeOut" },
+                  y: { duration: 0.25, ease: "easeOut" }, // same timing → simultaneous
+                  delay: index * 0.05,
                 }}
               >
                 {/* Image Container */}
@@ -116,10 +117,17 @@ const FeaturedProperties = () => {
                     isLarge ? "h-80 lg:h-96" : "h-64"
                   }`}
                 >
-                  <img
+                  <Image
                     src={property.image}
                     alt={property.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    fill
+                    priority={index < 2}
+                    sizes={
+                      isLarge
+                        ? "(max-width: 1024px) 100vw, 50vw"
+                        : "(max-width: 1024px) 50vw, 25vw"
+                    }
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
 
                   {/* Overlays */}

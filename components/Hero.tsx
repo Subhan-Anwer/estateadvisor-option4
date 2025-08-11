@@ -20,7 +20,7 @@ const Hero = () => {
   useEffect(() => {
     const timer = setInterval(
       () => setCurrentSlide((prev) => (prev + 1) % slides.length),
-      5000
+      4000
     );
     return () => clearInterval(timer);
   }, [slides.length]);
@@ -29,36 +29,47 @@ const Hero = () => {
     setCurrentSlide(index);
   }, []);
 
+
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* Background Slider */}
+      {/* Static First Image */}
+      <div className="absolute inset-0">
+        <Image
+          src={slides[0].image}
+          alt={slides[0].title}
+          fill
+          priority
+          quality={100}
+          sizes="(max-width: 768px) 1000px, 100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-[#111111]/40 to-transparent"></div>
+      </div>
+
+      {/* Animated Other Slides */}
       <div className="absolute inset-0">
         <AnimatePresence>
-          {slides.map(
-            (slide, index) =>
-              index === currentSlide && (
+          {currentSlide !== 0 && (
                 <motion.div
-                  key={index}
+                  key={currentSlide}
                   className="absolute inset-0"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  style={{ willChange: "opacity, transform" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
                 >
                   <Image
-                    src={slide.image}
-                    alt={slide.title}
+                    src={slides[currentSlide].image}
+                    alt={slides[currentSlide].title}
                     fill
-                    priority={index === 0} // First image loads instantly
-                    quality={90}
+                    quality={100}
                     sizes="100vw"
-                    className="object-cover scale-105"
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-[#111111]/40 to-transparent"></div>
                 </motion.div>
               )
-          )}
+          }
         </AnimatePresence>
       </div>
 

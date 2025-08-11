@@ -3,37 +3,43 @@ import React from "react";
 import { Star, Quote } from "lucide-react";
 import { motion } from "framer-motion";
 
+const testimonials = [
+  {
+    id: 1,
+    rating: 5,
+    text: "Estate Advisor helped me find the perfect commercial space for my business. Their market knowledge and negotiation skills saved me both time and money. Highly recommended!",
+  },
+  {
+    id: 2,
+    rating: 5,
+    text: "As a first-time buyer, I was overwhelmed by the process. The team at Estate Advisor guided me through every step and helped me secure my dream apartment in Clifton.",
+  },
+  {
+    id: 3,
+    rating: 5,
+    text: "I've been investing in Karachi real estate for 10 years, but Estate Advisor's insights have taken my portfolio to the next level. Their market analysis is unparalleled.",
+  },
+  {
+    id: 4,
+    rating: 5,
+    text: "Moving to Karachi from abroad was daunting, but Estate Advisor made finding a home effortless. Their professionalism and local expertise are exceptional.",
+  },
+];
+
+const testimonialIndicators = [
+  { value: "4.9/5", label: "Average Rating" },
+  { value: "98%", label: "Client Satisfaction" },
+  { value: "500+", label: "5-Star Reviews" },
+  { value: "24/7", label: "Support Available" },
+];
+
 const TestimonialsSection = () => {
-
-  const testimonials = [
-    {
-      id: 1,
-      rating: 5,
-      text: "Estate Advisor helped me find the perfect commercial space for my business. Their market knowledge and negotiation skills saved me both time and money. Highly recommended!",
-    },
-    {
-      id: 2,
-      rating: 5,
-      text: "As a first-time buyer, I was overwhelmed by the process. The team at Estate Advisor guided me through every step and helped me secure my dream apartment in Clifton.",
-    },
-    {
-      id: 3,
-      rating: 5,
-      text: "I've been investing in Karachi real estate for 10 years, but Estate Advisor's insights have taken my portfolio to the next level. Their market analysis is unparalleled.",
-    },
-    {
-      id: 4,
-      rating: 5,
-      text: "Moving to Karachi from abroad was daunting, but Estate Advisor made finding a home effortless. Their professionalism and local expertise are exceptional.",
-    },
-  ];
-
   return (
     <section className="py-20 bg-[#0f0f0f] border-t border-gray-600 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#d4af37] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#d4af37] rounded-full blur-3xl"></div>
+        <div className="bg-glow top-0 left-1/4 w-96 h-96"></div>
+        <div className="bg-glow bottom-0 right-1/4 w-96 h-96"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -53,14 +59,14 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              className="group relative glass border border-white/10 rounded-2xl p-8 hover:border-[#d4af37]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#d4af37]/10"
+              className="group relative glass border border-white/10 rounded-2xl p-8 hover:border-[#d4af37]/30 transition-all duration-500 hover:scale-105 hover:drop-shadow-[0_0_24px_rgba(212,175,55,0.1)]"
               style={{ animationDelay: `${index * 0.2}s` }}
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{
-                duration: 0.6,
-                delay: index * 0.15,
+                duration: 0.4,
+                delay: index * 0.1,
                 ease: "easeOut",
               }}
             >
@@ -85,19 +91,14 @@ const TestimonialsSection = () => {
               </p>
 
               {/* Hover Effect */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#d4af37]/0 via-[#d4af37]/5 to-[#d4af37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#d4af37]/0 via-[#d4af37]/5 to-[#d4af37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
             </motion.div>
           ))}
         </div>
 
         {/* Trust Indicators */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-5">
-          {[
-            { value: "4.9/5", label: "Average Rating" },
-            { value: "98%", label: "Client Satisfaction" },
-            { value: "500+", label: "5-Star Reviews" },
-            { value: "24/7", label: "Support Available" },
-          ].map((item, i) => (
+          {testimonialIndicators.map((item, i) => (
             <motion.div
               key={i}
               className="text-center cursor-default"
