@@ -5,75 +5,141 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
+const properties = [
+  {
+    id: 1,
+    title: "300 Square Yards Brand New Bungalow",
+    location: "DHA Phase VIII, Karachi",
+    price: "8.5 Crore",
+    beds: 5,
+    baths: 0,
+    area: "300 sq yards",
+    image: "/prop1.jpg",
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "Brand new Ultra Luxury House",
+    location: "DHA Phase VIII, Karachi",
+    price: "2.8 Crore",
+    beds: 6,
+    baths: 3,
+    area: "666 sq yards",
+    image: "/prop2.jpg",
+    featured: false,
+  },
+  {
+    id: 3,
+    title: "Brand new Luxu House",
+    location: "DHA Phase VIII, Karachi",
+    price: "8 Crore",
+    beds: 6,
+    baths: 4,
+    area: "666 sq ft",
+    image: "/prop3.jpg",
+    featured: false,
+  },
+  {
+    id: 4,
+    title: "4 Luxurious 5-Bedroom Modern Bungalow",
+    location: "DHA Phase VIII, Zone B, Karachi",
+    price: "14 Crore",
+    beds: 5,
+    baths: 3,
+    area: "500 sq yards",
+    image: "/prop4.jpg",
+    featured: true,
+  },
+  {
+    id: 5,
+    title: "Ultra Luxury 5 Bedroom Bungalow",
+    location: "DHA Phase VIII, Karachi",
+    price: "3.8 Crore",
+    beds: 5,
+    baths: 4,
+    area: "500 sq yards",
+    image: "/prop5.jpg",
+    featured: false,
+  },
+  {
+    id: 6,
+    title: "Brand New Luxurious Bungalow",
+    location: "DHA Phase VIII, Karachi",
+    price: "5.5 Crore",
+    beds: 6,
+    baths: 4,
+    area: "1000 sq yards",
+    image: "/prop6.jpg",
+    featured: false,
+  },
+  // {
+  //   id: 7,
+  //   title: "300 Square Yards Brand New Bungalow",
+  //   location: "DHA Phase VIII, Karachi",
+  //   price: "8.5 Crore",
+  //   beds: 5,
+  //   baths: 0,
+  //   area: "300 sq yards",
+  //   image: "/prop1.jpg",
+  //   featured: true,
+  // },
+  // {
+  //   id: 8,
+  //   title: "Brand new Ultra Luxury House",
+  //   location: "DHA Phase VIII, Karachi",
+  //   price: "2.8 Crore",
+  //   beds: 6,
+  //   baths: 3,
+  //   area: "666 sq yards",
+  //   image: "/prop2.jpg",
+  //   featured: false,
+  // },
+  // {
+  //   id: 9,
+  //   title: "Brand new Luxu House",
+  //   location: "DHA Phase VIII, Karachi",
+  //   price: "8 Crore",
+  //   beds: 6,
+  //   baths: 4,
+  //   area: "666 sq ft",
+  //   image: "/prop3.jpg",
+  //   featured: false,
+  // },
+  // {
+  //   id: 10,
+  //   title: "4 Luxurious 5-Bedroom Modern Bungalow",
+  //   location: "DHA Phase VIII, Zone B, Karachi",
+  //   price: "14 Crore",
+  //   beds: 5,
+  //   baths: 3,
+  //   area: "500 sq yards",
+  //   image: "/prop4.jpg",
+  //   featured: true,
+  // },
+  // {
+  //   id: 11,
+  //   title: "Ultra Luxury 5 Bedroom Bungalow",
+  //   location: "DHA Phase VIII, Karachi",
+  //   price: "3.8 Crore",
+  //   beds: 5,
+  //   baths: 4,
+  //   area: "500 sq yards",
+  //   image: "/prop5.jpg",
+  //   featured: false,
+  // },
+  // {
+  //   id: 12,
+  //   title: "Brand New Luxurious Bungalow",
+  //   location: "DHA Phase VIII, Karachi",
+  //   price: "5.5 Crore",
+  //   beds: 6,
+  //   baths: 4,
+  //   area: "1000 sq yards",
+  //   image: "/prop6.jpg",
+  //   featured: false,
+  // },
+];
 const FeaturedProperties = () => {
-  const properties = [
-    {
-      id: 1,
-      title: "300 Square Yards Brand New Bungalow",
-      location: "DHA Phase VIII, Karachi",
-      price: "8.5 Crore",
-      beds: 5,
-      baths: 0,
-      area: "300 sq yards",
-      image: "/prop1.jpg",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Brand new Ultra Luxury House",
-      location: "DHA Phase VIII, Karachi",
-      price: "2.8 Crore",
-      beds: 6,
-      baths: 3,
-      area: "666 sq yards",
-      image: "/prop2.jpg",
-      featured: false,
-    },
-    {
-      id: 3,
-      title: "Brand new Luxu House",
-      location: "DHA Phase VIII, Karachi",
-      price: "8 Crore",
-      beds: 6,
-      baths: 4,
-      area: "666 sq ft",
-      image: "/prop3.jpg",
-      featured: false,
-    },
-    {
-      id: 4,
-      title: "4 Luxurious 5-Bedroom Modern Bungalow",
-      location: "DHA Phase VIII, Zone B, Karachi",
-      price: "14 Crore",
-      beds: 5,
-      baths: 3,
-      area: "500 sq yards",
-      image: "/prop4.jpg",
-      featured: true,
-    },
-    {
-      id: 5,
-      title: "Ultra Luxury 5 Bedroom Bungalow",
-      location: "DHA Phase VIII, Karachi",
-      price: "3.8 Crore",
-      beds: 5,
-      baths: 4,
-      area: "500 sq yards",
-      image: "/prop5.jpg",
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Brand New Luxurious Bungalow",
-      location: "DHA Phase VIII, Karachi",
-      price: "5.5 Crore",
-      beds: 6,
-      baths: 4,
-      area: "1000 sq yards",
-      image: "/prop6.jpg",
-      featured: false,
-    },
-  ];
 
   return (
     <section className="py-20 bg-[#121212]">
@@ -91,17 +157,18 @@ const FeaturedProperties = () => {
         </div>
 
         {/* Magazine Style Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 space-y-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 space-y-2">
           {properties.map((property, index) => {
             const isLarge = property.featured;
-            const gridClass = isLarge
+            const gridClass =
+              isLarge
               ? "md:col-span-2 md:row-span-2"
               : "md:col-span-1";
 
             return (
               <motion.div
                 key={property.id}
-                className={`group relative bg-white/3 backdrop-blur-sm border border-gray-500/50 rounded-2xl overflow-hidden hover:border-[#d4af37]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#d4af37]/10 ${gridClass}`}
+                className={`group relative h-full bg-white/3 backdrop-blur-sm border border-gray-500/50 rounded-2xl overflow-hidden hover:border-[#d4af37]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#d4af37]/10 ${gridClass}`}
                 initial={{ y: 25, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.15 }}
@@ -140,7 +207,7 @@ const FeaturedProperties = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-6 pr-0">
+                <div className="p-5 pr-0">
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors">
                     {property.title}
                   </h3>
@@ -186,7 +253,7 @@ const FeaturedProperties = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Link href={"#"}>
+          <Link href={"/properties"}>
             <motion.button
               className="bg-[#d1a925] text-black font-semibold px-8 py-4 rounded-lg hover:from-[#b8941f] hover:to-[#d4af37] cursor-pointer hover:shadow-lg hover:shadow-[#d4af37]/25"
               whileHover={{ scale: 1.07 }}
