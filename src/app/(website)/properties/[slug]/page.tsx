@@ -27,9 +27,9 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
     //    </div>
     //  )}
 
-    <div className="min-h-screen bg-white/2 mt-12">
+    <div className="min-h-screen mt-12">
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto md:px-4 px-2 pt-6">
         <PropertyImageCarousel property={property} />
       </div>
 
@@ -45,7 +45,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
           </div>
 
           {/* Right Column - Contact */}
-          <div className="lg:col-span-1 sm:pr-4 pr-0">
+          <div className="lg:col-span-1 sm:pr-4 pr-0 mt-0 sm:mt-4">
             <div className="sticky top-6">
               <PropertyContact slug={slug} />
             </div>
