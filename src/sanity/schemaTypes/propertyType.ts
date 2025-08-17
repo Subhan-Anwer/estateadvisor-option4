@@ -41,13 +41,22 @@ export const propertyType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "image",
-      title: "Product Image",
+      name: "mainImage",
+      title: "Main Image",
       type: "image",
       options: {
         hotspot: true,
       },
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "gallery",
+      title: "Property Gallery",
+      type: "array",
+      of: [{ type: "image" }],
+      options: {
+        layout: "grid",
+      }
     }),
 
     defineField({
@@ -104,7 +113,7 @@ export const propertyType = defineType({
   preview: {
     select: {
       title: "name",
-      media: "image",
+      media: "mainImage",
       subtitle: "price",
     },
     prepare(select) {

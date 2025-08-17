@@ -40,9 +40,9 @@ const PropertyGrid = ({ properties }: { properties: Property[] }) => {
                   isLarge ? "aspect-[4/3] lg:aspect-[16/9]" : "aspect-[4/3]"
                 }`}
               >
-                {property.image && (
+                {property.mainImage && (
                   <Image
-                    src={imageUrl(property.image).url()}
+                    src={imageUrl(property.mainImage).url()}
                     alt={"property.title"}
                     fill
                     sizes={
@@ -63,7 +63,7 @@ const PropertyGrid = ({ properties }: { properties: Property[] }) => {
                 )}
 
                 {/* Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                 {/* Property Type Badge */}
                 {property.type && (
                   <div className="absolute top-4 left-4 bg-[#d4af37] text-[#0c2625] px-3 py-1 rounded-full text-sm font-semibold">
@@ -73,21 +73,21 @@ const PropertyGrid = ({ properties }: { properties: Property[] }) => {
               </div>
 
               {/* Content */}
-              <div className="py-6 md:pl-6 pl-4 md:pr-3 pr-2">
+              <div className="py-6 md:pl-5 pl-3 md:pr-3 pr-2">
                 <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#d4af37] line-clamp-2 transition-colors">
                   {property.name}
                 </h3>
-                <div className="flex items-center text-white/60 mb-4">
+                <div className="flex items-center text-white/60">
                   <MapPin size={16} className="mr-1.5" />
-                  <span className="text-sm">{property.location} Location</span>
+                  <span className="text-sm">{property.location}</span>
                 </div>
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between my-3">
                   <div className="text-2xl font-bold text-[#d4af37]">
                     ₨ {property.price}
                   </div>
                 </div>
                 {/* Property Details */}
-                <div className="flex items-center space-x-3 text-white/60 text-sm">
+                <div className="flex flex-wrap items-center space-y-1 space-x-3 text-white/60 text-sm">
                   {(property.beds ?? 0) > 0 && (
                     <div className="flex items-center space-x-1">
                       <Bed size={16} />
