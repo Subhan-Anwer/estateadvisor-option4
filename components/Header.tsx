@@ -16,12 +16,12 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const showBlurBg = isScrolled || isMobileMenuOpen;
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-[#111111]/65 backdrop-blur-md"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-250 ${
+        showBlurBg ? "bg-[#111111]/65 backdrop-blur-md" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-1">
@@ -80,7 +80,9 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => {
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+            }}
             className="lg:hidden text-white"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -89,7 +91,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 border-t border-white/10">
+          <div className="lg:hidden mt-4 pb-4 border-t border-white/10 ">
             <nav className="flex flex-col space-y-4 mt-4">
               <a
                 href="#properties"
