@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-// import PropertyThumbnail from "./PropertyThumbnail";
 import { Property } from "../../sanity.types";
 
 import Image from "next/image";
