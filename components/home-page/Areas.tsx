@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { Home, Building } from "lucide-react";
+import Image from "next/image";
 
 const areas = [
   {
@@ -18,14 +19,7 @@ const areas = [
     icon: Building,
   },
   {
-    name: "Gulshan e Iqbal",
-    listings: 28,
-    description: "settle in a great connectivity neighborhood",
-    position: { top: "41%", left: "47%" },
-    icon: Home,
-  },
-  {
-    name: "Clifton Cantt",
+    name: "Clifton",
     listings: 18,
     description: "Secure cantonment area with modern facilities",
     position: { top: "62%", left: "39%" },
@@ -38,10 +32,19 @@ const areas = [
     position: { top: "59%", left: "76%" },
     icon: Home,
   },
+  {
+    name: "Bath Island",
+    listings: 22,
+    description: "Central location with excellent infrastructure",
+    position: { top: "59%", left: "76%" },
+    icon: Home,
+  },
 ];
 
 const Areas = () => {
   const [mapVisible, setMapVisible] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [showIframe, setShowIframe] = useState(false);
   const mapRef = useRef<HTMLDivElement | null>(null);
 
   // Lazy-load the map when it's in view
@@ -60,6 +63,13 @@ const Areas = () => {
     }
     return () => observer.disconnect();
   }, []);
+  
+  useEffect(() => {
+    if (iframeLoaded) {
+      const timeout = setTimeout(() => setShowIframe(true), 500); // 500ms delay
+      return () => clearTimeout(timeout);
+    }
+  }, [iframeLoaded]);
 
   return (
     <section className="py-20 bg-[#0c0c0c]">
@@ -83,7 +93,7 @@ const Areas = () => {
               ref={mapRef}
               className="relative rounded-2xl overflow-hidden border border-gray-800 h-96 lg:h-[500px] bg-[#1a1a1a] flex items-center justify-center"
             >
-              {mapVisible ? (
+              {mapVisible && (
                 <iframe
                   src="https://www.google.com/maps/d/u/0/embed?mid=19aAYPSX20cdioMLEuAdy1t3rGGOzxw0&ehbc=2E312F&noprof=1"
                   width="100%"
@@ -92,9 +102,22 @@ const Areas = () => {
                   allowFullScreen={true}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
+                  onLoad={() => setIframeLoaded(true)}
+                  className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
+                    iframeLoaded ? "opacity-100" : "opacity-0"
+                  }`}
                 ></iframe>
-              ) : (
-                <span className="text-gray-500 text-lg">Loading map...</span>
+              )}
+
+              {/* Show placeholder image while iframe is loading */}
+              {!showIframe && (
+                <Image
+                  src="/custom-google-map-of-areas-we-deal-in.png"
+                  alt="Map Placeholder"
+                  layout="fill"
+                  objectFit="cover"
+                  className="w-full h-full object-cover object-center"
+                />
               )}
             </div>
           </div>
@@ -124,9 +147,9 @@ const Areas = () => {
                       <p className="text-sm text-gray-200/60 mb-2">
                         {area.description}
                       </p>
-                        <span className="text-xs text-[#daab2d] font-medium">
-                          {area.listings} Properties
-                        </span>
+                      <span className="text-xs text-[#daab2d] font-medium">
+                        {area.listings} Properties
+                      </span>
                     </div>
                   </div>
                 </div>
