@@ -10,6 +10,7 @@ import {
   Youtube,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const socials = [
   { icon: <Facebook size={18} />, hover: "hover:bg-[#106aff]" },
@@ -47,13 +48,13 @@ const Footer = () => {
             </p>
             <div className="flex space-x-3">
               {socials.map((social, idx) => (
-                <a
+                <Link
                   key={idx}
                   href="#"
                   className={`w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white transition-all duration-300 ${social.hover}`}
                 >
                   {social.icon}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -65,16 +66,41 @@ const Footer = () => {
                 Quick Links
               </h4>
               <ul className="space-y-3 text-sm">
-                {["Home", "Properties", "About Us", "Contact"].map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-white/70 hover:text-[#d4af37] transition-colors"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white/70 hover:text-[#d4af37] transition-colors"
+                  >
+                    Home
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    href="/properties"
+                    className="text-white/70 hover:text-[#d4af37] transition-colors"
+                  >
+                    Properties
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    href="/about"
+                    className="text-white/70 hover:text-[#d4af37] transition-colors"
+                  >
+                    About
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    href="/contact"
+                    className="text-white/70 hover:text-[#d4af37] transition-colors"
+                  >
+                    Contact
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -91,12 +117,12 @@ const Footer = () => {
                   "Valuation Services",
                 ].map((service) => (
                   <li key={service}>
-                    <a
+                    <Link
                       href="#"
                       className="text-white/70 hover:text-[#d4af37] transition-colors"
                     >
                       {service}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
