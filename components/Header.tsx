@@ -44,30 +44,30 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <a
-              href="#properties"
+            <Link
+              href="/"
               className="text-white/80 hover:text-[#d4af37] transition-colors"
             >
               Home
-            </a>
-            <a
-              href="#properties"
+            </Link>
+            <Link
+              href="/properties"
               className="text-white/80 hover:text-[#d4af37] transition-colors"
             >
               Properties
-            </a>
-            <a
-              href="#about"
+            </Link>
+            <Link
+              href="/about"
               className="text-white/80 hover:text-[#d4af37] transition-colors"
             >
               About
-            </a>
-            <a
-              href="#contact"
+            </Link>
+            <Link
+              href="/contact"
               className="text-white/80 hover:text-[#d4af37] transition-colors"
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
           {/* Contact Info */}
@@ -93,30 +93,30 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 border-t border-white/10 ">
             <nav className="flex flex-col space-y-4 mt-4">
-              <a
-                href="#properties"
+              <Link
+                href="/"
                 className="text-white/80 hover:text-[#d4af37] transition-colors"
               >
                 Home
-              </a>
-              <a
-                href="#services"
+              </Link>
+              <Link
+                href="/properties"
                 className="text-white/80 hover:text-[#d4af37] transition-colors"
               >
                 Properties
-              </a>
-              <a
-                href="#about"
+              </Link>
+              <Link
+                href="/about"
                 className="text-white/80 hover:text-[#d4af37] transition-colors"
               >
                 About
-              </a>
-              <a
-                href="#contact"
+              </Link>
+              <Link
+                href="/contact"
                 className="text-white/80 hover:text-[#d4af37] transition-colors"
               >
                 Contact
-              </a>
+              </Link>
             </nav>
           </div>
         )}
