@@ -29,7 +29,7 @@ const Header = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-1">
             <Image
-              src="/logo.png"
+              src="/estate-advisor-logo.png"
               alt="Logo"
               className="w-12 h-full text-black mt-1 pb-1"
               height={68}
