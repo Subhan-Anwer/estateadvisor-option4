@@ -44,7 +44,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-6 py-1">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-1">
+          <Link href="/" className="flex items-center space-x-1" scroll={true}>
             <Image
               src="/icon.png"
               alt="Logo"
@@ -64,24 +64,28 @@ const Header = () => {
             <Link
               href="/"
               className="text-white/80 hover:text-[#d4af37] transition-colors"
+              scroll={true}
             >
               Home
             </Link>
             <Link
               href="/properties"
               className="text-white/80 hover:text-[#d4af37] transition-colors"
+              scroll={true}
             >
               Properties
             </Link>
             <Link
               href="/about"
               className="text-white/80 hover:text-[#d4af37] transition-colors"
+              scroll={true}
             >
               About
             </Link>
             <Link
               href="/contact"
               className="text-white/80 hover:text-[#d4af37] transition-colors"
+              scroll={true}
             >
               Contact
             </Link>
@@ -124,6 +128,7 @@ const Header = () => {
                   href={item.href}
                   className="text-white/80 hover:text-[#d4af37] transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
+                  scroll={true}
                 >
                   {item.label}
                 </Link>
