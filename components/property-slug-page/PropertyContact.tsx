@@ -18,8 +18,8 @@ export const PropertyContact = ({slug}: {slug: string}) => {
       <div className="p-6 mb-6 border-luxury-gold/20 bg-gradient-subtle border rounded-2xl bg-white/3 border-[#ffffff2e]">
         <div className="flex items-start gap-4">
           <Image
-            src="/noman.jpg"
-            alt="Noman Sheikh"
+            src="/sohail-ramzan.png"
+            alt="Sohail Ramzan"
             width={120}
             height={120}
             quality={100}
@@ -27,7 +27,7 @@ export const PropertyContact = ({slug}: {slug: string}) => {
           />
           <div className="flex-1">
             <h3 className="text-xl font-semibold text-foreground">
-              Noman Sheikh
+              Sohail Ramzan
             </h3>
             <p className=" mb-2 text-sm">Real Estate Agent / Advisor</p>
 
