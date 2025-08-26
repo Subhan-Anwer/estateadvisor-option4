@@ -13,14 +13,27 @@ import Image from "next/image";
 import Link from "next/link";
 
 const socials = [
-  { icon: <Facebook size={18} />, hover: "hover:bg-[#106aff]" },
+  {
+    icon: <Facebook size={18} />,
+    hover: "hover:bg-[#106aff]",
+    link: "https://www.facebook.com/EstateAdvisor0323",
+  },
   {
     icon: <Instagram size={18} />,
     hover:
       "hover:bg-gradient-to-br hover:from-[#F9CE34] hover:via-[#EE2A7B] hover:to-[#6228d7]",
+    link: "https://www.instagram.com/estateadvisor01",
   },
-  { icon: <Linkedin size={18} />, hover: "hover:bg-[#086bc9]" },
-  { icon: <Youtube size={18} />, hover: "hover:bg-[#ff0000]" },
+  {
+    icon: <Linkedin size={18} />,
+    hover: "hover:bg-[#086bc9]",
+    link: "https://www.linkedin.com/company/officialestateadvisor/",
+  },
+  {
+    icon: <Youtube size={18} />,
+    hover: "hover:bg-[#ff0000]",
+    link: "https://www.youtube.com/@SohailRamzan_0323",
+  },
 ];
 
 const Footer = () => {
@@ -50,7 +63,7 @@ const Footer = () => {
               {socials.map((social, idx) => (
                 <Link
                   key={idx}
-                  href="#"
+                  href={social.link}
                   className={`w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white transition-all duration-300 ${social.hover}`}
                 >
                   {social.icon}
