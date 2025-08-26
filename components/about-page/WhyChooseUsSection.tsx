@@ -25,11 +25,6 @@ export const WhyChooseUsSection = () => {
       us: "24/7 dedicated support",
     },
     {
-      feature: "Technology",
-      others: "Basic listing tools",
-      us: "Advanced AI-powered matching",
-    },
-    {
       feature: "Network",
       others: "Limited connections",
       us: "Extensive industry network",
