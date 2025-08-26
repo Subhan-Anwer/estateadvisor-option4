@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,16 +7,33 @@ import Link from "next/link";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      setIsMobileMenuOpen(false);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const showBlurBg = isScrolled || isMobileMenuOpen;
+
+  // Close menu when clicking outside (future enhancement)
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header
@@ -91,32 +108,26 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 border-t border-white/10 ">
+          <div
+            ref={menuRef}
+            className="lg:hidden mt-4 pb-4 border-t border-white/10 "
+          >
             <nav className="flex flex-col space-y-4 mt-4">
-              <Link
-                href="/"
-                className="text-white/80 hover:text-[#d4af37] transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                href="/properties"
-                className="text-white/80 hover:text-[#d4af37] transition-colors"
-              >
-                Properties
-              </Link>
-              <Link
-                href="/about"
-                className="text-white/80 hover:text-[#d4af37] transition-colors"
-              >
-                About
-              </Link>
-              <Link
-                href="/contact"
-                className="text-white/80 hover:text-[#d4af37] transition-colors"
-              >
-                Contact
-              </Link>
+              {[
+                { href: "/", label: "Home" },
+                { href: "/properties", label: "Properties" },
+                { href: "/about", label: "About" },
+                { href: "/contact", label: "Contact" },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-white/80 hover:text-[#d4af37] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
           </div>
         )}
