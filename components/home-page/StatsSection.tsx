@@ -124,7 +124,7 @@ const StatsSection = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 space-y-4 gap-4 md:gap-8">
           {stats.map((stat) => (
             <div key={stat.key} className="group relative">
-              <div className="glass bg-black border border-white/10 rounded-2xl p-8 text-center hover:border-[#d4af37]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#d4af37]/10">
+              <div className="glass bg-black border border-white/10 rounded-2xl p-4 py-6 sm:p-8 text-center hover:border-[#d4af37]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#d4af37]/10">
                 {/* Icon */}
                 <div
                   className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${stat.color} p-4 transform group-hover:rotate-6 transition-transform duration-300`}
@@ -137,13 +137,13 @@ const StatsSection = () => {
                   <span className="text-4xl lg:text-5xl font-bold">
                     {counts[stat.key as keyof typeof counts].toLocaleString()}
                   </span>
-                  <span className="text-3xl lg:text-4xl font-bold">
+                  <span className="text-3xl lg:text-4xl font-bold bg">
                     {stat.suffix}
                   </span>
                 </div>
 
                 {/* Label */}
-                <p className="text-white/70 font-medium">{stat.label}</p>
+                <p className="text-white/70 font-medium w-full">{stat.label}</p>
               </div>
             </div>
           ))}
