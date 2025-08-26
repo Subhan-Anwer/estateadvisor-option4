@@ -62,3 +62,98 @@ body {
   border:1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
+
+
+
+/* Cosmic background and aurora keyframes */
+@keyframes aurora {
+  0%, 100% {
+    opacity: 0.2;
+    transform: translateY(-20px);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateY(20px);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) translateX(0px) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) translateX(10px) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(10vh) translateX(-10px) scale(1);
+  }
+  100% {
+    transform: translateY(0vh) translateX(0px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes textGlow {
+  0% { text-shadow: 0 0 30px rgba(255,215,0,0.3); }
+  100% { text-shadow: 0 0 50px rgba(255,215,0,0.6), 0 0 100px rgba(255,215,0,0.2); }
+}
+
+@keyframes starFlicker {
+  0% { opacity: 0.8; text-shadow: 0 0 20px rgba(255,215,0,0.4); }
+  100% { opacity: 1; text-shadow: 0 0 30px rgba(255,215,0,0.6); }
+}
+
+@keyframes subtlePulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* Custom utilities */
+.aurora-line {
+  @apply absolute w-[2px] h-full bg-[linear-gradient(to_bottom,transparent,rgba(255,215,0,0.5),transparent)];
+  animation: aurora 8s linear infinite;
+}
+
+.particle {
+  @apply absolute w-[3px] h-[3px] rounded-full;
+  background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%);
+  animation: float 12s infinite linear;
+}
+
+.main-headline {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 25%, #FFD700 50%, #FFEF94 75%, #FFD700 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite, textGlow 3s ease-in-out infinite alternate;
+}
+
+.sub-headline {
+  animation: starFlicker 2s ease-in-out infinite alternate;
+}
+
+.callout-line {
+  animation: subtlePulse 4s ease-in-out infinite;
+}
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.3);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
