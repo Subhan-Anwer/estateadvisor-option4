@@ -47,7 +47,7 @@ const Header = () => {
           <Link href="/" className="flex items-center space-x-1" scroll={true}>
             <Image
               src="/icon.png"
-              alt="Logo"
+              alt="Estate Advisor"
               className="w-12 h-full text-black mt-1 pb-1"
               height={68}
               width={68}

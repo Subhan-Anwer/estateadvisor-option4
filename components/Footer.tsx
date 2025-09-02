@@ -46,8 +46,8 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-3 mb-6">
               <Image
-                src="/logo.png"
-                alt="Estate Advisor Logo"
+                src="/icon.png"
+                alt="Estate Advisor"
                 height={58}
                 width={58}
                 quality={100}
