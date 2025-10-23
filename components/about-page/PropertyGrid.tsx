@@ -2,7 +2,18 @@
 
 import { motion } from "framer-motion";
 import PropertyCard from "./PropertyCard";
-import { Property } from "@/app/(website)/property/page";
+
+interface Property {
+  id: number;
+  title: string;
+  price: number;
+  location: string;
+  type: "House" | "Bungalow" | "Commercial Plot";
+  size: number; // in square yards
+  bedrooms?: number;
+  image: string;
+  features: string[];
+}
 
 interface PropertyGridProps {
   properties: Property[];

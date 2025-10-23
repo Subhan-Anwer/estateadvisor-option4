@@ -3,7 +3,27 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, MapPin, Home, Ruler, DollarSign } from "lucide-react";
-import { Property, FilterState } from "@/app/(website)/property/page";
+
+interface Property {
+  id: number;
+  title: string;
+  price: number;
+  location: string;
+  type: "House" | "Bungalow" | "Commercial Plot";
+  size: number; // in square yards
+  bedrooms?: number;
+  image: string;
+  features: string[];
+}
+
+interface FilterState {
+  location: string;
+  type: string;
+  minSize: number;
+  maxSize: number;
+  minPrice: number;
+  maxPrice: number;
+}
 
 interface SearchFilterProps {
   filters: FilterState;
