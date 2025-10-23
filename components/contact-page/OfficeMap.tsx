@@ -35,18 +35,10 @@ const OfficeMap = () => {
           <div className="space-y-2 text-sm sm:flex items-center justify-center gap-10">
             <div className="grid sm:grid-cols-1 grid-cols-2 items-center space-y-1 my-2">
               <span className="text-white/60 sm:text-center text-left">
-                Monday - Friday
+                Monday - Saturday
               </span>
               <span className="text-white sm:text-center text-right">
-                9:00 AM - 8:00 PM
-              </span>
-            </div>
-            <div className="grid sm:grid-cols-1 grid-cols-2 items-center space-y-1 my-2">
-              <span className="text-white/60 sm:text-center text-left">
-                Saturday
-              </span>
-              <span className="text-white sm:text-center text-right">
-                10:00 AM - 6:00 PM
+                11:00 AM - 7:00 PM
               </span>
             </div>
             <div className="grid sm:grid-cols-1 grid-cols-2 items-center space-y-1 my-2">

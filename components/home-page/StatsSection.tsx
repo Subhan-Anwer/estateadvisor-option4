@@ -17,7 +17,7 @@ const StatsSection = () => {
   const targetValues = useMemo(
     () => ({
       properties: 2500,
-      clients: 15000,
+      clients: 5000,
       experience: 30,
       partners: 150,
     }),
@@ -97,7 +97,7 @@ const StatsSection = () => {
         key: "partners",
         suffix: "+",
         label: "Partner Developers",
-        color: "from-[#fa5caf] to-[#ed3992]",
+        color: "from-[#fc0017] to-[#61050a]",
       },
     ],
     []

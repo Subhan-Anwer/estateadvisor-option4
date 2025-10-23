@@ -14,7 +14,7 @@ const page = () => {
       <CompanyStorySection />
       <MissionVisionSection />
       <CoreValuesSection />
-      <TeamSection />
+      {/* <TeamSection /> */}
       <WhyChooseUsSection />
       <CTASection />
     </div>
