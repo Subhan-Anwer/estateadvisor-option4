@@ -3,7 +3,18 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { MapPin, Bed, Ruler, Eye } from "lucide-react";
-import { Property } from "@/app/(website)/property/page";
+
+interface Property {
+  id: number;
+  title: string;
+  price: number;
+  location: string;
+  type: "House" | "Bungalow" | "Commercial Plot";
+  size: number; // in square yards
+  bedrooms?: number;
+  image: string;
+  features: string[];
+}
 
 interface PropertyCardProps {
   property: Property;
