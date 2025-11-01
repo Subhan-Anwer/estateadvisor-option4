@@ -85,7 +85,8 @@ export type Property = {
     _type: "image";
     _key: string;
   }>;
-  price?: number;
+  price?: string;
+  featured?: boolean;
 };
 
 export type BlockContent = Array<{
@@ -315,8 +316,88 @@ export type ALL_PROPERTIES_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
-  price?: number;
+  price?: string;
+  featured?: boolean;
   imageGallery: null;
+}>;
+
+// Source: ./src/sanity/lib/properties/getFeaturedProperties.ts
+// Variable: FEATURED_PROPERTIES_QUERY
+// Query: *[                _type == "property" && featured == true            ] | order(name asc)
+export type FEATURED_PROPERTIES_QUERYResult = Array<{
+  _id: string;
+  _type: "property";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type?: "Apartment" | "Bungalow" | "Commercial" | "House";
+  location?: string;
+  mainImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  gallery?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    _key: string;
+  }>;
+  beds?: number;
+  bath?: number;
+  size?: {
+    value?: number;
+    unit?: "marla" | "sqYards";
+  };
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  price?: string;
+  featured?: boolean;
 }>;
 
 // Source: ./src/sanity/lib/properties/getPropertyBySlug.ts
@@ -394,7 +475,8 @@ export type PROPERTY_BY_ID_QUERYResult = {
     _type: "image";
     _key: string;
   }>;
-  price?: number;
+  price?: string;
+  featured?: boolean;
 } | null;
 
 // Query TypeMap
@@ -402,6 +484,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n            *[_type == \"property\"] | order(name asc) {\n              ...,\n              \"imageGallery\": null\n            }\n        ": ALL_PROPERTIES_QUERYResult;
+    "\n            *[\n                _type == \"property\" && featured == true\n            ] | order(name asc)\n        ": FEATURED_PROPERTIES_QUERYResult;
     "\n            *[\n                _type == \"property\" && slug.current ==$slug\n            ] | order(name asc) [0]\n        ": PROPERTY_BY_ID_QUERYResult;
   }
 }
