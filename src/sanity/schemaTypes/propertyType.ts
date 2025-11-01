@@ -56,7 +56,7 @@ export const propertyType = defineType({
       of: [{ type: "image" }],
       options: {
         layout: "grid",
-      }
+      },
     }),
 
     defineField({
@@ -106,8 +106,14 @@ export const propertyType = defineType({
     defineField({
       name: "price",
       title: "Price",
-      type: "number",
+      type: "string",
       validation: (Rule) => Rule.required().min(0),
+    }),
+    defineField({
+      name: "featured",
+      title: "Featured Property",
+      type: "boolean",
+      initialValue: false,
     }),
   ],
   preview: {
