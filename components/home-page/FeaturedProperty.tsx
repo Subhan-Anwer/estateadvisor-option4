@@ -1,146 +1,13 @@
-"use client";
+"use client"
 import React from "react";
+import Image from "next/image";
+import Link from 'next/link';
 import { MapPin, Bed, Bath, Square } from "lucide-react";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import Image from "next/image";
+import { Property } from "../../sanity.types";
+import { imageUrl } from "@/lib/imageUrl";
 
-const properties = [
-  {
-    id: 1,
-    title: "300 Square Yards Brand New Bungalow",
-    location: "DHA Phase VIII, Karachi",
-    price: "8.5 Crore",
-    beds: 5,
-    baths: 0,
-    area: "300 sq yards",
-    image: "/prop1.jpg",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Brand new Ultra Luxury House",
-    location: "DHA Phase VIII, Karachi",
-    price: "2.8 Crore",
-    beds: 6,
-    baths: 3,
-    area: "666 sq yards",
-    image: "/prop2.jpg",
-    featured: false,
-  },
-  {
-    id: 3,
-    title: "Brand new Luxu House",
-    location: "DHA Phase VIII, Karachi",
-    price: "8 Crore",
-    beds: 6,
-    baths: 4,
-    area: "666 sq ft",
-    image: "/prop3.jpg",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "4 Luxurious 5-Bedroom Modern Bungalow",
-    location: "DHA Phase VIII, Zone B, Karachi",
-    price: "14 Crore",
-    beds: 5,
-    baths: 3,
-    area: "500 sq yards",
-    image: "/prop4.jpg",
-    featured: true,
-  },
-  {
-    id: 5,
-    title: "Ultra Luxury 5 Bedroom Bungalow",
-    location: "DHA Phase VIII, Karachi",
-    price: "3.8 Crore",
-    beds: 5,
-    baths: 4,
-    area: "500 sq yards",
-    image: "/prop5.jpg",
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "Brand New Luxurious Bungalow",
-    location: "DHA Phase VIII, Karachi",
-    price: "5.5 Crore",
-    beds: 6,
-    baths: 4,
-    area: "1000 sq yards",
-    image: "/prop6.jpg",
-    featured: false,
-  },
-  // {
-  //   id: 7,
-  //   title: "300 Square Yards Brand New Bungalow",
-  //   location: "DHA Phase VIII, Karachi",
-  //   price: "8.5 Crore",
-  //   beds: 5,
-  //   baths: 0,
-  //   area: "300 sq yards",
-  //   image: "/prop1.jpg",
-  //   featured: true,
-  // },
-  // {
-  //   id: 8,
-  //   title: "Brand new Ultra Luxury House",
-  //   location: "DHA Phase VIII, Karachi",
-  //   price: "2.8 Crore",
-  //   beds: 6,
-  //   baths: 3,
-  //   area: "666 sq yards",
-  //   image: "/prop2.jpg",
-  //   featured: false,
-  // },
-  // {
-  //   id: 9,
-  //   title: "Brand new Luxu House",
-  //   location: "DHA Phase VIII, Karachi",
-  //   price: "8 Crore",
-  //   beds: 6,
-  //   baths: 4,
-  //   area: "666 sq ft",
-  //   image: "/prop3.jpg",
-  //   featured: false,
-  // },
-  // {
-  //   id: 10,
-  //   title: "4 Luxurious 5-Bedroom Modern Bungalow",
-  //   location: "DHA Phase VIII, Zone B, Karachi",
-  //   price: "14 Crore",
-  //   beds: 5,
-  //   baths: 3,
-  //   area: "500 sq yards",
-  //   image: "/prop4.jpg",
-  //   featured: true,
-  // },
-  // {
-  //   id: 11,
-  //   title: "Ultra Luxury 5 Bedroom Bungalow",
-  //   location: "DHA Phase VIII, Karachi",
-  //   price: "3.8 Crore",
-  //   beds: 5,
-  //   baths: 4,
-  //   area: "500 sq yards",
-  //   image: "/prop5.jpg",
-  //   featured: false,
-  // },
-  // {
-  //   id: 12,
-  //   title: "Brand New Luxurious Bungalow",
-  //   location: "DHA Phase VIII, Karachi",
-  //   price: "5.5 Crore",
-  //   beds: 6,
-  //   baths: 4,
-  //   area: "1000 sq yards",
-  //   image: "/prop6.jpg",
-  //   featured: false,
-  // },
-];
-const FeaturedProperties = () => {
-
+const FeaturedProperties = ({ featured_properties }: { featured_properties: Property[] }) => {
   return (
     <section className="py-20 bg-[#121212]">
       <div className="max-w-7xl mx-auto px-6">
@@ -158,16 +25,15 @@ const FeaturedProperties = () => {
 
         {/* Magazine Style Layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 space-y-2">
-          {properties.map((property, index) => {
-            const isLarge = property.featured;
-            const gridClass =
-              isLarge
+          {featured_properties.map((property, index) => {
+            const isLarge = index % 3 === 0;
+            const gridClass = isLarge
               ? "md:col-span-2 md:row-span-2"
               : "md:col-span-1";
 
             return (
               <motion.div
-                key={property.id}
+                key={index}
                 className={`group relative h-full bg-white/3 backdrop-blur-sm border border-gray-500/50 rounded-2xl overflow-hidden hover:border-[#d4af37]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#d4af37]/10 ${gridClass}`}
                 initial={{ y: 25, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
@@ -184,18 +50,20 @@ const FeaturedProperties = () => {
                     isLarge ? "h-80 lg:h-96" : "h-64"
                   }`}
                 >
-                  <Image
-                    src={property.image}
-                    alt={property.title}
-                    fill
-                    priority={index < 2}
-                    sizes={
-                      isLarge
-                        ? "(max-width: 1024px) 100vw, 50vw"
-                        : "(max-width: 1024px) 50vw, 25vw"
-                    }
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
+                  {property.mainImage && (
+                    <Image
+                      src={imageUrl(property.mainImage).url()}
+                      alt={property.name || "Featured property"}
+                      fill
+                      priority={index < 2}
+                      sizes={
+                        isLarge
+                          ? "(max-width: 1024px) 100vw, 50vw"
+                          : "(max-width: 1024px) 50vw, 25vw"
+                      }
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  )}
 
                   {/* Overlays */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
@@ -209,7 +77,7 @@ const FeaturedProperties = () => {
                 {/* Content */}
                 <div className="p-5 pr-0">
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors">
-                    {property.title}
+                    {property.name}
                   </h3>
 
                   <div className="flex items-center text-white/60 mb-4">
@@ -225,22 +93,26 @@ const FeaturedProperties = () => {
 
                   {/* Property Details */}
                   <div className="flex items-center space-x-3 text-white/60 text-sm">
-                    {property.beds > 0 && (
+                    {(property.beds ?? 0) > 0 && (
                       <div className="flex items-center space-x-1">
                         <Bed size={16} />
                         <span>{property.beds} Beds</span>
                       </div>
                     )}
-                    {property.baths > 0 && (
+                    {(property.bath ?? 0) > 0 && (
                       <div className="flex items-center space-x-1">
                         <Bath size={16} />
-                        <span>{property.baths} Baths</span>
+                        <span>{property.bath} Baths</span>
                       </div>
                     )}
-                    <div className="flex items-center space-x-1">
-                      <Square size={16} />
-                      <span>{property.area}</span>
-                    </div>
+                    {property.size && (
+                      <div className="flex items-center space-x-1">
+                        <Square size={16} />
+                        <span>
+                          {property.size?.value} {property.size?.unit}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
