@@ -88,8 +88,8 @@ export const propertyType = defineType({
           type: "string",
           options: {
             list: [
-              { title: "Square Yards", value: "sqYards" },
-              { title: "Marla", value: "marla" },
+              { title: "Square Yards", value: "Square Yards" },
+              { title: "Marla", value: "Marla" },
             ],
             layout: "dropdown",
           },

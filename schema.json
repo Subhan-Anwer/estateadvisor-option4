@@ -266,11 +266,11 @@
                 "of": [
                   {
                     "type": "string",
-                    "value": "sqYards"
+                    "value": "Square Yards"
                   },
                   {
                     "type": "string",
-                    "value": "marla"
+                    "value": "Marla"
                   }
                 ]
               },

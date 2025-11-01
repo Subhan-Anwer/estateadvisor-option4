@@ -5,10 +5,10 @@ import Link from "next/link";
 
 const phoneNumber = "+923233385541"; // sohail ramzan number
 const message =
-  'Hi! I want to visit this property. Here is the link: https://estateadvisor-option4.vercel.app/properties/';
+  'Hi! I want to visit this property. Here is the link: https://estateadvisor.com.pk/properties/';
 const whatsAppUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-export const PropertyContact = ({slug}: {slug: string}) => {
+export const PropertyContactAgent = ({ slug }: { slug: string }) => {
   return (
     <div className="bg-card rounded-xl p-6 md:p-8 shadow-card-elegant glass">
       <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">

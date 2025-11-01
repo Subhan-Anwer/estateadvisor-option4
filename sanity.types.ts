@@ -52,7 +52,7 @@ export type Property = {
   bath?: number;
   size?: {
     value?: number;
-    unit?: "sqYards" | "marla";
+    unit?: "Square Yards" | "Marla";
   };
   description?: Array<{
     children?: Array<{
@@ -283,7 +283,7 @@ export type ALL_PROPERTIES_QUERYResult = Array<{
   bath?: number;
   size?: {
     value?: number;
-    unit?: "marla" | "sqYards";
+    unit?: "Marla" | "Square Yards";
   };
   description?: Array<{
     children?: Array<{
@@ -363,7 +363,7 @@ export type FEATURED_PROPERTIES_QUERYResult = Array<{
   bath?: number;
   size?: {
     value?: number;
-    unit?: "marla" | "sqYards";
+    unit?: "Marla" | "Square Yards";
   };
   description?: Array<{
     children?: Array<{
@@ -442,7 +442,7 @@ export type PROPERTY_BY_ID_QUERYResult = {
   bath?: number;
   size?: {
     value?: number;
-    unit?: "marla" | "sqYards";
+    unit?: "Marla" | "Square Yards";
   };
   description?: Array<{
     children?: Array<{
