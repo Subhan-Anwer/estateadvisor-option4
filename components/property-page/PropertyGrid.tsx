@@ -42,7 +42,7 @@ const PropertyGrid = ({ properties }: { properties: Property[] }) => {
                 {property.mainImage && (
                   <Image
                     src={imageUrl(property.mainImage).url()}
-                    alt={"property.title"}
+                    alt={property.name || "Property Image"}
                     fill
                     sizes={
                       isLarge
