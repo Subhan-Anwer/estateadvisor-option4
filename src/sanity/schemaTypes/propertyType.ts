@@ -58,6 +58,22 @@ export const propertyType = defineType({
         layout: "grid",
       },
     }),
+    defineField({
+      name: "videos",
+      title: "Property Videos",
+      type: "array",
+      of: [
+        {
+          type: "file",
+          options: {
+            accept: "video/*",
+          },
+        },
+      ],
+      options: {
+        layout: "grid",
+      },
+    }),
 
     defineField({
       name: "beds",

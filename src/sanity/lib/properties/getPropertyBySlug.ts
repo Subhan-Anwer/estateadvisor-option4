@@ -3,9 +3,12 @@ import { sanityFetch } from "../live";
 
 export const getPropertyBySlug = async (slug: string) => {
   const PROPERTY_BY_ID_QUERY = defineQuery(`
-            *[
-                _type == "property" && slug.current ==$slug
-            ] | order(name asc) [0]
+            *[_type == "property" && slug.current == $slug][0]{
+            ...,
+            videos[]{
+              "url": asset->url
+            }
+          }
         `);
   try {
     const property = await sanityFetch({

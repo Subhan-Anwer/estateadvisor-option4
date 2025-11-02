@@ -48,6 +48,17 @@ export type Property = {
     _type: "image";
     _key: string;
   }>;
+  videos?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+    _key: string;
+  }>;
   beds?: number;
   bath?: number;
   size?: {
@@ -279,6 +290,17 @@ export type ALL_PROPERTIES_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  videos?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+    _key: string;
+  }>;
   beds?: number;
   bath?: number;
   size?: {
@@ -359,6 +381,17 @@ export type FEATURED_PROPERTIES_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  videos?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+    _key: string;
+  }>;
   beds?: number;
   bath?: number;
   size?: {
@@ -402,7 +435,7 @@ export type FEATURED_PROPERTIES_QUERYResult = Array<{
 
 // Source: ./src/sanity/lib/properties/getPropertyBySlug.ts
 // Variable: PROPERTY_BY_ID_QUERY
-// Query: *[                _type == "property" && slug.current ==$slug            ] | order(name asc) [0]
+// Query: *[_type == "property" && slug.current == $slug][0]{            ...,            gallery[],            videos[]{              "url": asset->url            }          }
 export type PROPERTY_BY_ID_QUERYResult = {
   _id: string;
   _type: "property";
@@ -425,7 +458,7 @@ export type PROPERTY_BY_ID_QUERYResult = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  gallery?: Array<{
+  gallery: Array<{
     asset?: {
       _ref: string;
       _type: "reference";
@@ -437,7 +470,10 @@ export type PROPERTY_BY_ID_QUERYResult = {
     crop?: SanityImageCrop;
     _type: "image";
     _key: string;
-  }>;
+  }> | null;
+  videos: Array<{
+    url: string | null;
+  }> | null;
   beds?: number;
   bath?: number;
   size?: {
@@ -485,6 +521,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n            *[_type == \"property\"] | order(name asc) {\n              ...,\n              \"imageGallery\": null\n            }\n        ": ALL_PROPERTIES_QUERYResult;
     "\n            *[\n                _type == \"property\" && featured == true\n            ] | order(name asc)\n        ": FEATURED_PROPERTIES_QUERYResult;
-    "\n            *[\n                _type == \"property\" && slug.current ==$slug\n            ] | order(name asc) [0]\n        ": PROPERTY_BY_ID_QUERYResult;
+    "\n            *[_type == \"property\" && slug.current == $slug][0]{\n            ...,\n            gallery[],\n            videos[]{\n              \"url\": asset->url\n            }\n          }\n        ": PROPERTY_BY_ID_QUERYResult;
   }
 }

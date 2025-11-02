@@ -66,23 +66,42 @@ export const PropertyImageCarousel = ({ property }: { property: Property }) => {
       // }}
     >
       <CarouselContent className="h-full">
-        {property.gallery?.map((img, idx) => (
-          <CarouselItem
-            key={idx}
-            className="w-full black flex items-start justify-center"
-          >
-            <Image
-              src={imageUrl(img).url()}
-              alt={`${property.name} - ${idx + 1}`}
-              width={1920}
-              height={1080}
-              quality={90}
-              priority={idx === 0}
-              loading={idx === 0 ? "eager" : "lazy"}
-              className={`object-contain w-full ${isFs ? "md:h-[100vh] h-[900px] " : "md:max-h-[440px] my-auto"} `}
-            />
-          </CarouselItem>
-        ))}
+        {(property.videos?.length ?? 0) > 0 &&
+          property.videos?.map((vid, idx) => (
+            <CarouselItem
+              key={idx}
+              className="w-full  flex items-start justify-center"
+            >
+              <video
+                controls
+                controlsList="nodownload"
+                onContextMenu={(e) => e.preventDefault()}
+                className={`object-contain w-full ${isFs ? "md:h-[100vh] h-[900px] " : "md:max-h-[440px] my-auto"} `}
+              >
+                <source src={(vid as any).url} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </CarouselItem>
+          ))}
+
+        {(property.gallery?.length ?? 0) > 0 &&
+          property.gallery?.map((img, idx) => (
+            <CarouselItem
+              key={idx}
+              className="w-full black flex items-start justify-center"
+            >
+              <Image
+                src={imageUrl(img).url()}
+                alt={`${property.name} - ${idx + 1}`}
+                width={1920}
+                height={1080}
+                quality={90}
+                priority={idx === 0}
+                loading={idx === 0 ? "eager" : "lazy"}
+                className={`object-contain w-full ${isFs ? "md:h-[100vh] h-[900px] " : "md:max-h-[440px] my-auto"} `}
+              />
+            </CarouselItem>
+          ))}
       </CarouselContent>
 
       {/* Navigation */}
