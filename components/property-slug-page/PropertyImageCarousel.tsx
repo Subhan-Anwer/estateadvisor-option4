@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/carousel";
 
 export const PropertyImageCarousel = ({ property }: { property: Property }) => {
-  const [api, setApi] = useState<CarouselApi>()
+  const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [isFs, setIsFs] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -28,11 +28,11 @@ export const PropertyImageCarousel = ({ property }: { property: Property }) => {
       return;
     }
 
-    setCurrent(api.selectedScrollSnap() + 1)
+    setCurrent(api.selectedScrollSnap() + 1);
 
     api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1)
-    })
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
   }, [api]);
 
   // Fullscreen (true browser fullscreen)
@@ -50,7 +50,9 @@ export const PropertyImageCarousel = ({ property }: { property: Property }) => {
     return () => document.removeEventListener("fullscreenchange", onFsChange);
   }, []);
 
- 
+  // total slides (videos + images)
+  const totalSlides =
+    (property.videos?.length ?? 0) + (property.gallery?.length ?? 0);
 
   return (
     <Carousel
@@ -129,10 +131,12 @@ export const PropertyImageCarousel = ({ property }: { property: Property }) => {
         )}
       </button>
 
-      {/* Image counter */}
-      <div className="absolute bottom-4 right-4 border border-gray-300/50 bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium z-10">
-        {current} / {property.gallery?.length}
-      </div>
+      {/* Image / Video counter */}
+      {totalSlides > 0 && (
+        <div className="absolute bottom-4 right-4 border border-gray-300/50 bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium z-10">
+          {current} / {totalSlides}
+        </div>
+      )}
     </Carousel>
   );
 };
