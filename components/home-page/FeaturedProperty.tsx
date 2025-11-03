@@ -1,13 +1,17 @@
-"use client"
+"use client";
 import React from "react";
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 import { MapPin, Bed, Bath, Square } from "lucide-react";
 import { motion } from "framer-motion";
 import { Property } from "../../sanity.types";
 import { imageUrl } from "@/lib/imageUrl";
 
-const FeaturedProperties = ({ featured_properties }: { featured_properties: Property[] }) => {
+const FeaturedProperties = ({
+  featured_properties,
+}: {
+  featured_properties: Property[];
+}) => {
   return (
     <section className="py-20 bg-[#121212]">
       <div className="max-w-7xl mx-auto px-6">
@@ -44,80 +48,82 @@ const FeaturedProperties = ({ featured_properties }: { featured_properties: Prop
                   delay: index * 0.05,
                 }}
               >
-                {/* Image Container */}
-                <div
-                  className={`relative overflow-hidden ${
-                    isLarge ? "h-80 lg:h-96" : "h-64"
-                  }`}
-                >
-                  {property.mainImage && (
-                    <Image
-                      src={imageUrl(property.mainImage).url()}
-                      alt={property.name || "Featured property"}
-                      fill
-                      priority={index < 2}
-                      sizes={
-                        isLarge
-                          ? "(max-width: 1024px) 100vw, 50vw"
-                          : "(max-width: 1024px) 50vw, 25vw"
-                      }
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  )}
+                <Link href={`/properties/${property.slug?.current}`}>
+                  {/* Image Container */}
+                  <div
+                    className={`relative overflow-hidden ${
+                      isLarge ? "h-80 lg:h-96" : "h-64"
+                    }`}
+                  >
+                    {property.mainImage && (
+                      <Image
+                        src={imageUrl(property.mainImage).url()}
+                        alt={property.name || "Featured property"}
+                        fill
+                        priority={index < 2}
+                        sizes={
+                          isLarge
+                            ? "(max-width: 1024px) 100vw, 50vw"
+                            : "(max-width: 1024px) 50vw, 25vw"
+                        }
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    )}
 
-                  {/* Overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                    {/* Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
 
-                  {/* Featured Badge */}
-                  <div className="absolute top-4 left-4 bg-[#d4af37] text-[#0c2625] px-3 py-1 rounded-full text-sm font-semibold">
-                    Featured
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-5 pr-0">
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors">
-                    {property.name}
-                  </h3>
-
-                  <div className="flex items-center text-white/60 mb-4">
-                    <MapPin size={16} className="mr-1.5" />
-                    <span className="text-sm">{property.location}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="text-2xl font-bold text-[#d4af37]">
-                      ₨ {property.price}
+                    {/* Featured Badge */}
+                    <div className="absolute top-4 left-4 bg-[#d4af37] text-[#0c2625] px-3 py-1 rounded-full text-sm font-semibold">
+                      Featured
                     </div>
                   </div>
 
-                  {/* Property Details */}
-                  <div className="flex items-center space-x-3 text-white/60 text-sm">
-                    {(property.beds ?? 0) > 0 && (
-                      <div className="flex items-center space-x-1">
-                        <Bed size={16} />
-                        <span>{property.beds} Beds</span>
-                      </div>
-                    )}
-                    {(property.bath ?? 0) > 0 && (
-                      <div className="flex items-center space-x-1">
-                        <Bath size={16} />
-                        <span>{property.bath} Baths</span>
-                      </div>
-                    )}
-                    {property.size && (
-                      <div className="flex items-center space-x-1">
-                        <Square size={16} />
-                        <span>
-                          {property.size?.value} {property.size?.unit}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                  {/* Content */}
+                  <div className="p-5 pr-0">
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#d4af37] transition-colors">
+                      {property.name}
+                    </h3>
 
-                {/* Hover Effect Border */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#d4af37]/0 via-[#d4af37]/20 to-[#d4af37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    <div className="flex items-center text-white/60 mb-4">
+                      <MapPin size={16} className="mr-1.5" />
+                      <span className="text-sm">{property.location}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="text-2xl font-bold text-[#d4af37]">
+                        ₨ {property.price}
+                      </div>
+                    </div>
+
+                    {/* Property Details */}
+                    <div className="flex items-center space-x-3 text-white/60 text-sm">
+                      {(property.beds ?? 0) > 0 && (
+                        <div className="flex items-center space-x-1">
+                          <Bed size={16} />
+                          <span>{property.beds} Beds</span>
+                        </div>
+                      )}
+                      {(property.bath ?? 0) > 0 && (
+                        <div className="flex items-center space-x-1">
+                          <Bath size={16} />
+                          <span>{property.bath} Baths</span>
+                        </div>
+                      )}
+                      {property.size && (
+                        <div className="flex items-center space-x-1">
+                          <Square size={16} />
+                          <span>
+                            {property.size?.value} {property.size?.unit}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Hover Effect Border */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#d4af37]/0 via-[#d4af37]/20 to-[#d4af37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                </Link>
               </motion.div>
             );
           })}
