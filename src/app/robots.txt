@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.estateadvisor.com.pk
+
+# Sitemaps
+Sitemap: https://www.estateadvisor.com.pk/sitemap.xml
