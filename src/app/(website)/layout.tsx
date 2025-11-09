@@ -4,6 +4,7 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { SanityLive } from "@/sanity/lib/live";
 import WhatsAppButton from "../../../components/WhatsappButton";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.estateadvisor.com.pk"),
@@ -58,6 +59,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen">
+        {/* <!-- Google tag (gtag.js) --> */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-G7B5QZ152P"
+        ></Script>
+        <Script>
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-G7B5QZ152P');
+          `}
+        </Script>
         <main>
           <Header />
           {children}
