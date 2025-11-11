@@ -5,7 +5,7 @@ export const getFeaturedProperties = async () => {
   const FEATURED_PROPERTIES_QUERY = defineQuery(`
             *[
                 _type == "property" && featured == true
-            ] | order(name asc)
+            ] | order(_createdAt desc)
         `);
   try {
     const property = await sanityFetch({

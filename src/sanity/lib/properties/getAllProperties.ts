@@ -3,7 +3,7 @@ import { sanityFetch } from "../live";
 
 export const getAllProperties = async () => {
   const ALL_PROPERTIES_QUERY = defineQuery(`
-            *[_type == "property"] | order(name asc) {
+            *[_type == "property"] | order(_createdAt desc) {
               ...,
               "imageGallery": null
             }
