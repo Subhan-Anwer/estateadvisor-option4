@@ -18,7 +18,7 @@ export const PropertyContactAgent = ({ slug }: { slug: string }) => {
       <div className="p-6 mb-6 border-luxury-gold/20 bg-gradient-subtle border rounded-2xl bg-white/3 border-[#ffffff2e]">
         <div className="flex items-start gap-4">
           <Image
-            src="/sohail-ramzan.png"
+            src="/sohail-ramzan.jpg"
             alt="Sohail Ramzan"
             width={120}
             height={120}
